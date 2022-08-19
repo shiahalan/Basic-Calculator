@@ -52,7 +52,13 @@ def calculate():
   op = calculations[1]
 
   if op == "/":
-    answer = one / two
+    if two == 0:
+      if one == 0:
+        answer = 0
+      else:
+        answer = "ZERO ERROR"
+    else:
+      answer = one / two
   elif op == "x":
     answer = one * two
   elif op == "-":
