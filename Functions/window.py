@@ -1,8 +1,8 @@
+#this file contains all the functions for the realization of the interface
 from Functions.functions import *
 
-
 # Row One
-button_7 = tk.Button(command = lambda: edit_numbers("7"), text="7", font=("Times New Roman", 30), width=4)  # Lambda with no params used to prevent calling of function with argument
+button_7 = tk.Button(command = lambda: edit_numbers("7"), text="7", font=("Times New Roman", 30), width=4) 
 button_7.grid(column=0, row=2)
 
 button_8 = tk.Button(command = lambda: edit_numbers("8"), text="8", font=("Times New Roman", 30), width=4)
