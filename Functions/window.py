@@ -11,7 +11,7 @@ button_8.grid(column=1, row=2)
 button_9 = tk.Button(command = lambda: edit_numbers("9"),text="9", font=("Times New Roman", 30), width=4)
 button_9.grid(column=2, row=2)
 
-button_div = tk.Button(command = lambda: toggle("/"), text="/", font=("Times New Roman", 30), width=4)
+button_div = tk.Button(command = lambda: add_signe("/"), text="/", font=("Times New Roman", 30), width=4)
 button_div.grid(column=3, row=2)
 
 
@@ -25,7 +25,7 @@ button_5.grid(column=1, row=3)
 button_6 = tk.Button(command = lambda: edit_numbers("6"),text="6", font=("Times New Roman", 30), width=4)
 button_6.grid(column=2, row=3)
 
-button_mul = tk.Button(command = lambda: toggle("x"), text="x", font=("Times New Roman", 30), width=4)
+button_mul = tk.Button(command = lambda: add_signe("x"), text="x", font=("Times New Roman", 30), width=4)
 button_mul.grid(column=3, row=3)
 
 
@@ -39,7 +39,7 @@ button_2.grid(column=1, row=4)
 button_3 = tk.Button(command = lambda: edit_numbers("3"),text="3", font=("Times New Roman", 30), width=4)
 button_3.grid(column=2, row=4)
 
-button_sub = tk.Button(command = lambda: toggle("-"), text="-", font=("Times New Roman", 30), width=4)
+button_sub = tk.Button(command = lambda: add_signe("-"), text="-", font=("Times New Roman", 30), width=4)
 button_sub.grid(column=3, row=4)
 
 
@@ -53,5 +53,5 @@ button_dot.grid(column=1, row=5)
 button_equal = tk.Button(command = calculate, text="=", font=("Times New Roman", 30), width=4)
 button_equal.grid(column=2, row=5)
 
-button_add = tk.Button(command = lambda: toggle("+"), text="+", font=("Times New Roman", 30), width=4)
+button_add = tk.Button(command = lambda: add_signe("+"), text="+", font=("Times New Roman", 30), width=4)
 button_add.grid(column=3, row=5)

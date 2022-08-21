@@ -1,79 +1,133 @@
+from ast import Delete
+from logging import exception
+from tkinter import Tk
 from Variables.variables import *
+ans=0
+calcerror=str()
+class Calculator():
+ 
+    def __init__(self, s):
+        self._s = s
+        self._i = 0
+        self._len = len(s)
+        self._err = False
+    
+    def next(self):
+        self._i += 1
+        
+    def take(self):
+        l = self._len
+        j = i = self._i
+        s = self._s
+        if j<l and s[j] == '(':
+            self.next()
+            n = self.calc()
+            if s[self._i] != ')':
+                raise Exception()
+            self.next()
+            return n
+        while j < l and s[j].isdigit():
+            j += 1
+        self._i = j
+        if i == j:
+            raise Exception()
+        return int(s[i:j])
+        
+    def poww(self):
+        res = self.take()
+        l = self._len
+        s = self._s
+        while self._i < l and s[self._i] == '^':
+            self.next()
+            num = self.take()
+            res = res**num
+        return res
+    
+    def mul_div(self):
+        global calcerror
+        res = self.poww()
+        l = self._len
+        s, i = self._s, self._i
+        while self._i < l and s[self._i] in ('/', 'x'):
+            op = s[self._i]
+            self.next()
+            num = self.poww()
+            if op == 'x':
+                res *= num
+            if op == '/':
+                if num==0:
+                  calcerror="error division"
+                else:
+                  res /= num
+        return res
+    
+    def plus_minus(self):
+        res = self.mul_div()
+        l = self._len
+        s, i = self._s, self._i
+        while self._i < l and s[self._i] in ('+', '-'):
+            op = s[self._i]
+            self.next()
+            num = self.mul_div()
+            if op == '+':
+                res += num
+            if op == '-':
+                res -= num
+        return res
+    
+    def calc(self):
+        try:
+            return self.plus_minus()
+        except:
+            if not self._err:
+                print('Parsing Error at index {}'.format(self._i))
+            self._err = True
+        return None
 
 def edit_numbers(num):
-  global calculations
-
-  if first:
-    calculations[0] = calculations[0] + num
-    text.config(state=tk.NORMAL)  # Changes textfield to normal state so can edit
-    text.delete("1.0", tk.END)  # Delete text field content (1.0 or "1.0" works)
-    text.insert(tk.END, calculations[0])
-    text.config(state=tk.DISABLED)
-
-  else:
-    calculations[2] = calculations[2] + num
-    text.config(state=tk.NORMAL)
-    text.delete("1.0", tk.END)
-    text.insert(tk.END, calculations[2])
-    text.config(state=tk.DISABLED)
-
-
-def toggle(op):
-  global calculations
   global first
+  text.config(state=tk.NORMAL)
+  if first==True:
+    text.delete("1.0", tk.END)
+  text.insert(tk.END, num)
+  first=False
+  text.config(state=tk.DISABLED)
+    
 
-  if first:
-    first = False
-  
-  elif calculations[2] == "":
-    return None
-  
-  elif not calculations[2] == "":
-    answer = calculate()
-    first = False
-    calculations[0] = str(answer)
-  
-  calculations[1] = op
+def add_signe(op):
+  global first
+  global calcerror
+  global answer
+  text.config(state=tk.NORMAL)
+  if first==True:
+    if calcerror !="":
+      calcerror=""
+      text.delete("1.0", tk.END)
+      text.insert(tk.END, answer)
+    first=False
+  text.insert(tk.END, op)
+  first=False
+  text.config(state=tk.DISABLED)
 
 
 def calculate():
   global first
-
-  if calculations == ["", "", ""]:
-    text.config(state=tk.NORMAL)
-    text.delete("1.0", tk.END)
-    text.insert(tk.END, "CLEARED")
-    text.config(state=tk.DISABLED)
-    return None
-
-  one = float(calculations[0])
-  two = float(calculations[2])
-  answer = 0
-  op = calculations[1]
-
-  if op == "/":
-    if two == 0:
-      if one == 0:
-        answer = 0
-      else:
-        answer = "ZERO ERROR"
-    else:
-      answer = one / two
-  elif op == "x":
-    answer = one * two
-  elif op == "-":
-    answer = one - two
-  elif op == "+":
-    answer = one + two
+  global calcerror
+  global answer
+  calcerror=""
+  exp=text.get("1.0",tk.END)
+  answer=int()
+  i=Calculator(exp).calc()
 
   text.config(state=tk.NORMAL)
-  text.delete("1.0", tk.END)
-  text.insert(tk.END, str(answer))
+  text.delete("1.0","end")
+      
+  if calcerror:
+    text.insert("1.0", calcerror)
+    first=True
+  else:
+    answer=i
+    text.insert("1.0", answer)
   text.config(state=tk.DISABLED)
-
-  for i in range(3):
-    calculations[i] = ""
-
-  first = True
-
-  return answer
+  first=True;
+  return ans
