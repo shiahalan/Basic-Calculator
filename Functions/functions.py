@@ -1,3 +1,4 @@
+# tis file contains all function for  calcul
 from Variables.variables import *
 
 def edit_numbers(num):
