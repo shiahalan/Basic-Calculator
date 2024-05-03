@@ -7,6 +7,7 @@ This calculator has a fully interactable GUI using Python's Tkinter module. It i
 
 ## How to use:
 - Click on desired button with left mouse button
+- Click = twice to clear
 
 ## Creator:
 [GitHub](https://github.com/shiahalan)
